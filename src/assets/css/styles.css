@@ -11,3 +11,8 @@ h1 {
 .img-logo-pk{
     width: 120px;
 }
+
+.img-container{
+    text-align: center;
+    padding: 0;
+}

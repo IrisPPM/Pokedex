@@ -1,33 +1,84 @@
 import axios from 'axios';
 
 const API_URL = 'https://pokeapi.co/api/v2/';
+const pokemonContainer = document.querySelector('#pokemon-container')
+
 
 async function basePokemon(endpoint, value) {
     try {
         const response = await axios.get(`${API_URL}${endpoint}/${value}`);
-        console.log(response.data.pokemon);
+        //console.log(response.data.pokemon);
         for (let i = 0; i < response.data.pokemon.length; i++) {
             let pokemon = response.data.pokemon[i];
-            let namePoke = pokemon.pokemon.name;
+            let name = pokemon.pokemon.name;
+            //console.log(name);
 
-            console.log(namePoke);
-
-            const pokeImage = await axios.get(pokemon.pokemon.url)
-            console.log(pokeImage);
+            // cambiar nombre
+            const pokeImage = await axios.get(pokemon.pokemon.url);
+            const pokeTypes = pokeImage.data.types;
+            
+            const pokeMoves = pokeImage.data.moves.slice(0, 5);
 
             let imageURL = pokeImage.data.sprites.front_default;
-            console.log(imageURL);
+            //console.log(imageURL);
+            let number = pokeImage.data.id;
 
-            
-            const divContainerPoke = document.createElement('div')
-            const imgPokemones = document.createElement('img');
-            imgPokemones.src = imageURL;
-            imgPokemones.classList.add('img-fluid');
+            function createPokemon(pokemon) {
+                const divContainerPoke = document.createElement('div');
+                divContainerPoke.classList.add('col', 'shadow', 'p-0', 'm-2', 'bg-body', 'rounded');
 
-            divContainerPoke.appendChild(imgPokemones);
-            divContainerPoke.classList.add('col', 'p-0');
-            divContainerPoke.id = '1';
-            pokemonContainer.append(divContainerPoke);
+                const imgContainer = document.createElement('div');
+                imgContainer.classList.add('img-container');
+
+                const imgPokemones = document.createElement('img');
+                imgPokemones.src = imageURL;
+                imgPokemones.classList.add('img-fluid');
+
+                const pokeButton = document.createElement('button');
+                pokeButton.classList.add('btn', 'btn-success');
+                pokeButton.textContent = 'Ver detalle';
+                pokeButton.setAttribute('data-bs-toggle', 'modal');
+                pokeButton.setAttribute('data-bs-target', `#poke-${number}`);
+
+                divContainerPoke.addEventListener('click', () => {
+                    console.log(pokeTypes);
+                    const myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
+                    let modalTitle = exampleModal.querySelector('.modal-title');
+                    modalTitle.textContent = name;
+                    const modalImage = exampleModal.querySelector('.modal-body img');
+                    modalImage.src = imageURL;
+                    const modalTypes = exampleModal.querySelector('.modal-body .types-container')
+
+                    pokeTypes.forEach(type => {
+                        const span = document.createElement('span');
+                        span.classList.add('badge', 'bg-primary', 'mr-1');
+                        span.textContent = type.type.name;
+                        modalTypes.appendChild(span);
+                    });
+                    myModal.show();
+                });
+
+                imgContainer.appendChild(imgPokemones);
+                const numberPokemon = document.createElement('p');
+                numberPokemon.textContent = `#${number}`;
+                numberPokemon.classList.add('text-center')
+
+                const namePokemon = document.createElement('p');
+                namePokemon.textContent = name;
+                namePokemon.classList.add('text-center', 'h5')
+
+                divContainerPoke.appendChild(imgContainer);
+                divContainerPoke.appendChild(namePokemon);
+                divContainerPoke.appendChild(numberPokemon);
+                divContainerPoke.appendChild(pokeButton);
+
+                pokemonContainer.append(divContainerPoke);
+
+            }
+
+            createPokemon(pokemon[i]);
+
+
 
 
         }
@@ -36,9 +87,11 @@ async function basePokemon(endpoint, value) {
     }
 }
 
+basePokemon('type', 'fire');
 basePokemon('type', 'ground');
-//const { default: axios } = require("axios");
-const pokemonContainer = document.querySelector('#pokemon-container')
+basePokemon('type', 'water');
+basePokemon('type', 'electric');
+
 
 
 
