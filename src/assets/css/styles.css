@@ -6,6 +6,7 @@ h1 {
 
 .img-logo{
     width: 50px;
+    height: 50px;
 }
 
 .img-logo-pk{
@@ -15,4 +16,16 @@ h1 {
 .img-container{
     text-align: center;
     padding: 0;
+}
+
+.btnModal{
+    width: 100%;
+}
+
+.divConPoke{
+    text-align: center;
+}
+
+.types-container{
+    color: white;
 }
