@@ -123,9 +123,9 @@ async function basePokemon(endpoint, value) {
 }
 
 basePokemon('type', 'fire');
-/* basePokemon('type', 'ground');
+basePokemon('type', 'ground');
 basePokemon('type', 'water');
-basePokemon('type', 'electric'); */
+basePokemon('type', 'electric'); 
 
 const searchForm = document.getElementById('searchForm');
 
