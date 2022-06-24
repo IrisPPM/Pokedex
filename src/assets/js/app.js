@@ -29,7 +29,7 @@ async function basePokemon(endpoint, value) {
             const pokeMoves = pokeData.data.moves.slice(0, 5);
             //console.log(pokeMoves);
 
-            let imageURL = pokeData.data.sprites.front_default;
+            let imageURL = pokeData.data.sprites.other['official-artwork'].front_default;
             //console.log(imageURL);
             let number = pokeData.data.id;
             let color = colors[typePokemon];
@@ -62,8 +62,8 @@ async function basePokemon(endpoint, value) {
                     let modalTitle = exampleModal.querySelector('.modal-title');
                     modalTitle.textContent = name;
                     const modalImage = exampleModal.querySelector('.modal-body img');
-                    const imageModel = pokeData.data.sprites.other['official-artwork'].front_default;
-                    modalImage.src = imageModel;
+                    //const imageModel = pokeData.data.sprites.other['official-artwork'].front_default;
+                    modalImage.src = imageURL;
                     const modalTypes = exampleModal.querySelector('.modal-body .types-container')
                     const modalMoves = exampleModal.querySelector('.modal-body .moves-container')
                     if (modalTypes.childNodes.length > 0) {

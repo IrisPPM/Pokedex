@@ -1,6 +1,6 @@
 h1 {
-    color: red;
-    font-family: cursive;
+    color: #960018;
+    font-family: 'Josefin Sans', sans-serif;
     text-align: center;
 }
 
@@ -17,10 +17,28 @@ h1 {
     text-align: center;
     padding: 0;
 }
+.btn-success{
+    width: 100%;
+    background-color: #960018;
+    border-color: #960018;
+    
+}
+.btn-success:hover {
+    background-color: #670010;
+    border-color:#670010;
+  }
 
 .btnModal{
     width: 100%;
+    background-color: #960018;
+    border-color: #960018;
+    
 }
+
+.btnModal:hover {
+    background-color: #670010;
+    border-color:#670010;
+  }
 
 .divConPoke{
     text-align: center;
