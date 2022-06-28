@@ -3,19 +3,12 @@ import axios from 'axios';
 const API_URL = 'https://pokeapi.co/api/v2/';
 const pokemonContainer = document.querySelector('#pokemon-container')
 
-const colors = {
-    fire: '#FDDFDF',
-    grass: '#DEFDE0',
-    electric: '#FCF7DE',
-    water: '#DEF3FD',
-    ground: '#F4E7DA',
-}
 
 
 async function basePokemon(endpoint, value) {
     try {
         const response = await axios.get(`${API_URL}${endpoint}/${value}`);
-        //console.log(response.data.pokemon);
+        console.log(response.data.pokemon);
         for (let i = 0; i < response.data.pokemon.length; i++) {
             let pokemon = response.data.pokemon[i];
             let name = pokemon.pokemon.name;
@@ -24,20 +17,18 @@ async function basePokemon(endpoint, value) {
             // cambiar nombre
             const pokeData = await axios.get(pokemon.pokemon.url);
             const pokeTypes = pokeData.data.types;
-            let typePokemon = pokeData.data.types.type //Obtener el tipo de pokemon en la posicion i
-            //console.log(typePokemon);
             const pokeMoves = pokeData.data.moves.slice(0, 5);
             //console.log(pokeMoves);
 
             let imageURL = pokeData.data.sprites.other['official-artwork'].front_default;
             //console.log(imageURL);
             let number = pokeData.data.id;
-            let color = colors[typePokemon];
+           
 
             function createPokemon(pokemon) {
                 const divContainerPoke = document.createElement('div');
-                divContainerPoke.classList.add('col','divConPoke');
-                divContainerPoke.style.backgroundColor = color;
+                divContainerPoke.classList.add('col','.col-','divConPoke');
+                //divContainerPoke.style.backgroundColor = color;
 
                 // Card
                 const card = document.createElement('div');
@@ -46,8 +37,8 @@ async function basePokemon(endpoint, value) {
                 const cardBody = document.createElement('div');
                 cardBody.classList.add('card-body');
 
-                // const imgContainer = document.createElement('div');
-                // imgContainer.classList.add('img-container');
+                const imgContainer = document.createElement('div');
+                imgContainer.classList.add('img-container');
 
                 const imgPokemones = document.createElement('img');
                 imgPokemones.src = imageURL;
@@ -57,12 +48,13 @@ async function basePokemon(endpoint, value) {
                 pokeButton.classList.add('btn', 'btn-success', 'btnModal', 'text-center');
                 pokeButton.textContent = 'Ver detalle';
 
+                //Modal
                 divContainerPoke.addEventListener('click', () => {
                     const myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
                     let modalTitle = exampleModal.querySelector('.modal-title');
                     modalTitle.textContent = name;
                     const modalImage = exampleModal.querySelector('.modal-body img');
-                    //const imageModel = pokeData.data.sprites.other['official-artwork'].front_default;
+                    const imageModel = pokeData.data.sprites.other['official-artwork'].front_default;
                     modalImage.src = imageURL;
                     const modalTypes = exampleModal.querySelector('.modal-body .types-container')
                     const modalMoves = exampleModal.querySelector('.modal-body .moves-container')
@@ -91,7 +83,7 @@ async function basePokemon(endpoint, value) {
                     myModal.show();
                 });
 
-                // imgContainer.appendChild(imgPokemones);
+                imgContainer.appendChild(imgPokemones);
                 const numberPokemon = document.createElement('p');
                 numberPokemon.textContent = `#${number}`;
                 numberPokemon.classList.add('card-text');
